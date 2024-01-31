@@ -11,7 +11,6 @@ def test_calculate_delivery_fee():
 		"time": "2024-01-15T13:00:00Z"}
 
 	response = client.post("/calculate_delivery_fee", json=payload)
-
 	assert response.status_code == 200
 	assert "delivery_fee" in response.json()
 
@@ -20,6 +19,5 @@ def test_invalid_payload():
 	payload = {"invalid_key": "invalid_value"}
 	
 	response = client.post("/calculate_delivery_fee", json=payload)
-
 	assert response.status_code == 422
 	assert "detail" in response.json()
