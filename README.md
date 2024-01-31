@@ -4,7 +4,7 @@ This project is `Delivery Fee Calculator` for [Wolt Software Engineering Interns
 
 API implementation is done using [FastAPI](https://fastapi.tiangolo.com/) framework and for Unit tests was used [Pytest](https://docs.pytest.org/en/8.0.x/) framework.
 
-<br/>
+
 
 ## Development
 
@@ -28,7 +28,7 @@ $> docker compose run delivery-fee-api pytest
 
 #### Setting things up
 
-It's recommened to use [virtual enviroment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/), as it allows to avoid installing Python packages globally which could break system tools or other projects.
+It's recommened to use [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/), as it allows to avoid installing Python packages globally which could break system tools or other projects.
 
 ```bash
 $> python3 -m venv .venv/
