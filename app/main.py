@@ -48,7 +48,7 @@ class CartItems(BaseModel):
 			raise ValueError("Invalid 'time' format. Use ISO format: YYYY-MM-DDTHH:MM:SSZ")
 		return value
 
-@app.post("/calculate_delivery_fee")
+@app.post("/delivery_fee")
 async def calculate_delivery_fee_api(cart_items: CartItems):
 	try:
 		order_time = datetime.strptime(cart_items.time, '%Y-%m-%dT%H:%M:%SZ')
