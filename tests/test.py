@@ -4,6 +4,9 @@ from app.main import app
 client = TestClient(app)
 
 def test_calculate_delivery_fee():
+	"""
+	Test calculate_delivery_fee API endpoint.
+	"""
 	payload = {
 		"cart_value": 790,
 		"delivery_distance": 2235,
@@ -15,7 +18,9 @@ def test_calculate_delivery_fee():
 	assert "delivery_fee" in response.json()
 
 def test_invalid_payload():
-	# Test with invalid payload
+	"""
+	Test with invalid payload.
+	"""
 	payload = {"invalid_key": "invalid_value"}
 	
 	response = client.post("/delivery_fee", json=payload)

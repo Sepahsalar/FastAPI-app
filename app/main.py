@@ -3,6 +3,18 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, conint, field_validator
 
 def calculate_delivery_fee(cart_value, delivery_distance, number_of_items, order_time):
+	"""
+	Calculates the delivery fee based on various parameters.
+
+		Args:
+			cart_value (int): Total value of items in the cart (in cents).
+			delivery_distance (int): Distance for delivery in meters.
+			number_of_items (int): Total number of items in the cart.
+			order_time (datetime): Time of placing the order.
+			
+		Returns:
+			int: Calculated delivery fee (in cents).
+	"""
 	small_order_surcharge = max(0, 10 - (cart_value / 100))
 	base_delivery_fee = 2
 	additional_distance_fee = max(1, ((delivery_distance - 1000) // 500) + 1)
@@ -27,6 +39,16 @@ def calculate_delivery_fee(cart_value, delivery_distance, number_of_items, order
 	return round(total_delivery_fee * 100)
 
 def is_friday_rush(order_time):
+	"""
+	Checks if the order was placed during Friday rush hours.
+
+	Args:
+		order_time (datetime): Time of placing the order.
+		
+	Returns:
+		bool: True if the order was placed during Friday rush hours,
+			  False otherwise.
+	"""
 	delivery_day = order_time.weekday()
 	delivery_time_utc = order_time.time()
 	friday_rush_start = datetime.strptime('15:00', '%H:%M').time()
@@ -42,6 +64,15 @@ class CartItems(BaseModel):
 
 	@field_validator("time")
 	def validate_time_format(cls, value):
+		"""
+		Validate the format of the time field.
+		
+		Args:
+			value (str): Value of the time field.
+		
+		Raises:
+			ValueError: If the time format is invalid.
+		"""
 		try:
 			datetime.strptime(value, '%Y-%m-%dT%H:%M:%SZ')
 		except ValueError:
@@ -49,7 +80,10 @@ class CartItems(BaseModel):
 		return value
 
 @app.post("/delivery_fee")
-async def calculate_delivery_fee_api(cart_items: CartItems):
+async def delivery_fee_api(cart_items: CartItems):
+	"""
+	Calculate delivery fee API endpoint.
+	"""
 	try:
 		order_time = datetime.strptime(cart_items.time, '%Y-%m-%dT%H:%M:%SZ')
 	except ValueError:
