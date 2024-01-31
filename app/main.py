@@ -47,7 +47,7 @@ def is_friday_rush(order_time):
 		
 	Returns:
 		bool: True if the order was placed during Friday rush hours,
-			  False otherwise.
+                      False otherwise.
 	"""
 	delivery_day = order_time.weekday()
 	delivery_time_utc = order_time.time()
